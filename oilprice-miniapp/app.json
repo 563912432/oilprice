@@ -1,0 +1,15 @@
+{
+  "pages":[
+    "pages/index/index"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#0288F7",
+    "navigationBarTitleText": "今日油价查询",
+    "navigationBarTextStyle":"white"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index"
+  }
+}
