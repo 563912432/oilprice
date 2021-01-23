@@ -1,4 +1,11 @@
 <!--index.wxml-->
 <view class="index">
-  <view class="top"></view>
+  <view class="top">
+    2021年1月23日 今日油价
+  </view>
+  <view class="location">
+    <van-icon name="location" size='20px'/>
+    <text style="margin:0 5px">张店</text>
+    <van-icon name="arrow-down" size="20px" />
+  </view>
 </view>
