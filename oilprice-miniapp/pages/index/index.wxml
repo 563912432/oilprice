@@ -4,8 +4,75 @@
     2021年1月23日 今日油价
   </view>
   <view class="location">
-    <van-icon name="location" size='20px'/>
+    <van-icon name="location" size='20px' />
     <text style="margin:0 5px">张店</text>
     <van-icon name="arrow-down" size="20px" />
+  </view>
+  <view style="background-color: #ffffff;margin-top: 2px">
+    <view class="card">
+      <view>
+        <text class="width-32">89<text class="sub">#</text></text>
+        <text class="font-14">汽油</text>
+      </view>
+      <view style="letter-spacing: 1px;">
+        <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ list[0] }}</text>
+        <text class="font-14"> 元/升</text>
+      </view>
+    </view>
+    <view class="card">
+      <view>
+        <text class="width-32">92<text class="sub">#</text></text>
+        <text class="font-14">汽油</text>
+      </view>
+      <view style="letter-spacing: 1px;">
+        <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ list[1] }}</text>
+        <text class="font-14"> 元/升</text>
+      </view>
+    </view>
+    <view class="card">
+      <view>
+        <text class="width-32">95<text class="sub">#</text></text>
+        <text class="font-14">汽油</text>
+      </view>
+      <view style="letter-spacing: 1px;">
+        <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ list[2] }}</text>
+        <text class="font-14"> 元/升</text>
+      </view>
+    </view>
+    <view class="card">
+      <view>
+        <text class="width-32">98<text class="sub">#</text></text>
+        <text class="font-14">汽油</text>
+      </view>
+      <view style="letter-spacing: 1px;">
+        <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ list[3] }}</text>
+        <text class="font-14"> 元/升</text>
+      </view>
+    </view>
+    <view class="card">
+      <view>
+        <text class="width-32">0<text class="sub">#</text></text>
+        <text class="font-14">柴油</text>
+      </view>
+      <view style="letter-spacing: 1px;">
+        <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ list[4] }}</text>
+        <text class="font-14"> 元/升</text>
+      </view>
+    </view>
+  </view>
+  <view class="notice">
+    <view class="notice-info">
+      <text style="color: #EFFF44">今日消息：</text> <text>{{ notice }}</text>
+    </view>
+  </view>
+  <view class="bottom-card-parent">
+    <view class="bottom-card">
+      <text><text style="font-size: 18px">分</text>享好友</text>
+      <van-icon name="share-o" size="25px" />
+    </view>
+    <view class="bottom-card">
+      <text><text style="font-size: 18px">当</text>前城市</text>
+      <van-icon name="location-o" size="25px" />
+    </view>
   </view>
 </view>

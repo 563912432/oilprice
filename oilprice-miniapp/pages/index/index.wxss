@@ -3,10 +3,12 @@
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
+  background-color: #F1F1F1;
 }
+
 .index .top {
-  height: 150px;
-  background-color: #7BC240;
+  height: 120px;
+  background-color: #43B84A;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,6 +21,70 @@
   display: flex;
   align-items: center;
   padding: 16px;
+  background-color: #ffffff;
   color: #32B340;
   box-shadow: 2px 2px 2px #F5F5F5;
+}
+
+.index .card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 16px;
+  padding: 10px 0;
+  border-bottom: solid 1px #F0F0F0;
+  color: #70868E;
+  font-size: 16px;
+}
+
+.index .card:last-child {
+  border: none;
+}
+
+.index .card .sub {
+  display: inline-block;
+  font-size: 12px;
+  vertical-align: super;
+}
+
+.index .notice {
+  box-sizing: border-box;
+  margin-top: 5px;
+  background-color: #7BC240;
+  height: 100px;
+  display: flex;
+  color: rgba(255, 255, 255, .9);
+  font-size: 14px;
+  padding: 10px 16px;
+}
+
+.index .bottom-card-parent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+.index .bottom-card-parent .bottom-card {
+  box-sizing: border-box;
+  flex: 1;
+  padding: 16px;
+  background-color: #7BC240;
+  color: rgba(255, 255, 255, .9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+  border-radius: 5px;
+  letter-spacing: 1px;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.width-32 {
+  display: inline-block;
+  width: 32px;
+  text-align: center;
 }

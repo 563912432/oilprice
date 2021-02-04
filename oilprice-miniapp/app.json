@@ -1,6 +1,7 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/oil/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -12,5 +13,23 @@
   "usingComponents": {
     "van-button": "@vant/weapp/button/index",
     "van-icon": "@vant/weapp/icon/index"
-  }
+  },
+  "tabBar": {
+    "color": "#999999",
+    "borderStyle": "white",
+    "selectedColor": "#1989FA",
+    "backgroundColor": "#ffffff",
+    "list": [{
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./images/homepage.png",
+        "selectedIconPath": "./images/homepage_fill.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "油耗",
+        "iconPath": "./images/homepage.png",
+        "selectedIconPath": "./images/homepage_fill.png"
+      }]
+    }
 }
