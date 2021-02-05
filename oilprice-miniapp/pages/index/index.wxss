@@ -47,6 +47,29 @@
   vertical-align: super;
 }
 
+.index .van-swipe-cell__right {
+  display: flex;
+}
+.index .van-cell-text {
+  color: #70868E;
+  font-size: 16px;
+}
+
+.index .van-cell-text .sub {
+  display: inline-block;
+  font-size: 12px;
+  vertical-align: super;
+}
+
+.index .van-swipe-cell__right .right_card {
+  box-sizing: border-box;
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F1F1F1;
+  color: #70868E;
+}
 .index .notice {
   box-sizing: border-box;
   margin-top: 5px;
@@ -68,13 +91,12 @@
 .index .bottom-card-parent .bottom-card {
   box-sizing: border-box;
   flex: 1;
-  padding: 16px;
+  padding: 4px 16px;
   background-color: #7BC240;
   color: rgba(255, 255, 255, .9);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px;
   border-radius: 5px;
   letter-spacing: 1px;
 }

@@ -12,24 +12,29 @@
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
     "van-button": "@vant/weapp/button/index",
-    "van-icon": "@vant/weapp/icon/index"
+    "van-icon": "@vant/weapp/icon/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-area": "@vant/weapp/area/index"
   },
   "tabBar": {
     "color": "#999999",
     "borderStyle": "white",
-    "selectedColor": "#1989FA",
+    "selectedColor": "#32B340",
     "backgroundColor": "#ffffff",
     "list": [{
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "./images/homepage.png",
-        "selectedIconPath": "./images/homepage_fill.png"
+        "iconPath": "./image/home.png",
+        "selectedIconPath": "./image/home-filter.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/oil/index",
         "text": "油耗",
-        "iconPath": "./images/homepage.png",
-        "selectedIconPath": "./images/homepage_fill.png"
+        "iconPath": "./image/oil.png",
+        "selectedIconPath": "./image/oil-filter.png"
       }]
     }
 }

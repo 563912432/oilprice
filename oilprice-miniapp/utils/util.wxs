@@ -1,0 +1,13 @@
+function cal(item1, item2) {
+  var result = (parseFloat(item1) - parseFloat(item2)).toFixed(2)
+  if (parseFloat(result) === 0.00) {
+    return '-'
+  } else if (parseFloat(result) > 0) {
+    return '+' + result
+  } else {
+    return result
+  }
+}
+
+
+module.exports.cal = cal

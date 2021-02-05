@@ -1,64 +1,38 @@
 <!--index.wxml-->
+<wxs src="../../utils/util.wxs" module="tools"></wxs>
 <view class="index">
   <view class="top">
     2021年1月23日 今日油价
   </view>
-  <view class="location">
+  <view class="location" bindtap="showCity">
     <van-icon name="location" size='20px' />
-    <text style="margin:0 5px">张店</text>
+    <text style="margin:0 5px">{{ city }}</text>
     <van-icon name="arrow-down" size="20px" />
   </view>
   <view style="background-color: #ffffff;margin-top: 2px">
-    <view class="card">
-      <view>
-        <text class="width-32">89<text class="sub">#</text></text>
-        <text class="font-14">汽油</text>
+    <van-swipe-cell wx:for="{{ list }}" wx:key="index" right-width="{{ 140 }}" left-width="{{ 0 }}">
+      <van-cell-group>
+        <van-cell size="large">
+          <view slot="title" class="van-cell-text">
+            <text class="width-32">{{ item.title }}<text class="sub">#</text></text>
+            <text class="font-14">{{ item.type === 1 ? '汽油': '柴油' }}</text>
+          </view>
+          <view style="letter-spacing: 1px;">
+            <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ item.price }}</text>
+            <text class="font-14"> 元/升</text>
+          </view>
+        </van-cell>
+      </van-cell-group>
+      <view slot="right" class="van-swipe-cell__right">
+        <view class="right_card" style="border-right: solid 1px #E5E5E5">
+          <van-icon name="clock-o" style="margin-right: 4px" />
+          <text>{{ item.yesterday }}</text>
+        </view>
+        <view class="right_card" style="{{ item.price > item.yesterday ? 'color: #E54D42': 'color: #32B340' }}">
+          {{ tools.cal(item.price, item.yesterday) }}
+        </view>
       </view>
-      <view style="letter-spacing: 1px;">
-        <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ list[0] }}</text>
-        <text class="font-14"> 元/升</text>
-      </view>
-    </view>
-    <view class="card">
-      <view>
-        <text class="width-32">92<text class="sub">#</text></text>
-        <text class="font-14">汽油</text>
-      </view>
-      <view style="letter-spacing: 1px;">
-        <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ list[1] }}</text>
-        <text class="font-14"> 元/升</text>
-      </view>
-    </view>
-    <view class="card">
-      <view>
-        <text class="width-32">95<text class="sub">#</text></text>
-        <text class="font-14">汽油</text>
-      </view>
-      <view style="letter-spacing: 1px;">
-        <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ list[2] }}</text>
-        <text class="font-14"> 元/升</text>
-      </view>
-    </view>
-    <view class="card">
-      <view>
-        <text class="width-32">98<text class="sub">#</text></text>
-        <text class="font-14">汽油</text>
-      </view>
-      <view style="letter-spacing: 1px;">
-        <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ list[3] }}</text>
-        <text class="font-14"> 元/升</text>
-      </view>
-    </view>
-    <view class="card">
-      <view>
-        <text class="width-32">0<text class="sub">#</text></text>
-        <text class="font-14">柴油</text>
-      </view>
-      <view style="letter-spacing: 1px;">
-        <text style="font-size: 20px;color: #32B340;font-weight: bold">{{ list[4] }}</text>
-        <text class="font-14"> 元/升</text>
-      </view>
-    </view>
+    </van-swipe-cell>
   </view>
   <view class="notice">
     <view class="notice-info">
@@ -66,13 +40,21 @@
     </view>
   </view>
   <view class="bottom-card-parent">
-    <view class="bottom-card">
-      <text><text style="font-size: 18px">分</text>享好友</text>
-      <van-icon name="share-o" size="25px" />
-    </view>
-    <view class="bottom-card">
-      <text><text style="font-size: 18px">当</text>前城市</text>
-      <van-icon name="location-o" size="25px" />
-    </view>
+    <button open-type="share" style="flex: 1;padding: 0;margin: 10px">
+      <view class="bottom-card">
+        <text><text style="font-size: 22px;display: inline-block">分</text>享好友</text>
+        <van-icon name="share-o" size="25px" />
+      </view>
+    </button>
+    <button style="flex: 1;padding: 0;margin: 10px" bindtap="getUserLoaction">
+      <view class="bottom-card">
+        <text><text style="font-size: 22px;display: inline-block">当</text>前城市</text>
+        <van-icon name="location-o" size="25px" />
+      </view>
+    </button>
   </view>
 </view>
+
+<van-popup position="bottom" custom-style="height: 220px" show="{{ show }}" bind:close="onClose">
+  <van-area area-list="{{ areaList }}" visible-item-count="{{ 4 }}" bind:cancel="onClose" bind:confirm="confirmChose" />
+</van-popup>
