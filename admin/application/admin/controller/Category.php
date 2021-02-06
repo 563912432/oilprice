@@ -38,7 +38,6 @@ class Category extends Backend
         $this->view->assign("flagList", $this->model->getFlagList());
         $this->view->assign("typeList", $typeList);
         $this->view->assign("parentList", $categorydata);
-        $this->assignconfig('typeList', $typeList);
     }
 
     /**
