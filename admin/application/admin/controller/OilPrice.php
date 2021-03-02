@@ -5,13 +5,13 @@ namespace app\admin\controller;
 use app\common\controller\Backend;
 
 /**
- * 
+ *
  *
  * @icon fa fa-circle-o
  */
 class OilPrice extends Backend
 {
-    
+
     /**
      * OilPrice模型对象
      * @var \app\admin\model\OilPrice
@@ -35,7 +35,7 @@ class OilPrice extends Backend
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
-    
+
 
     /**
      * 查看
@@ -60,8 +60,8 @@ class OilPrice extends Backend
                     ->paginate($limit);
 
             foreach ($list as $row) {
-                
-                
+
+
             }
 
             $result = array("total" => $list->total(), "rows" => $list->items());
