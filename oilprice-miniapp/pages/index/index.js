@@ -1,6 +1,6 @@
 // index.js
-
 const { formatTime } = require("../../utils/util")
+const { getAreaList } = require("../../utils/arealist")
 const QQMapWX = require('../../utils/qqmap-wx-jssdk.min')
 let qqmapsdk
 // 获取应用实例
@@ -13,26 +13,13 @@ Page({
     notice: '',
     show: false,
     city: '张店区',
-    areaList: {
-      province_list: {
-        370000: '山东省'
-      },
-      city_list: {
-        370300: '淄博市'
-      },
-      county_list: {
-        370302: '淄川区',
-        370303: '张店区',
-        370304: '博山区',
-        370305: '临淄区',
-        370306: '周村区',
-        370321: '桓台县',
-        370322: '高青县',
-        370323: '沂源县'
-      }
-    }
+    areaList: {}
   },
   onLoad(option) {
+    // 取城市列表
+    this.getCityList()
+    // 定位当前城市
+    this.getUserLoaction()
     let date = new Date()
     let nowDate = formatTime(date)
     this.setData({
@@ -45,6 +32,12 @@ Page({
         { title: '0', type: 2, price: '5.76', yesterday: '5.70' }
       ],
       notice: '1月20日，第3个工作日，预测油价累计上调幅度50元/吨，折算为0.04元、升，调整窗口时间为：2021年1月29日24时'
+    })
+  },
+  // 取城市列表
+  getCityList: function () {
+    this.setData({
+      areaList: getAreaList()
     })
   },
   showCity: function () {
@@ -64,9 +57,6 @@ Page({
   },
   // 获取用户当前位置
   getUserLoaction: function () {
-    qqmapsdk = new QQMapWX({
-      key: '3RABZ-YPA3U-SN4V7-BILRL-OWZIQ-A2BPH'
-    })
     let vm = this
     wx.getSetting({
       success: (res) => {
@@ -137,6 +127,9 @@ Page({
     })
   },
   getLocal: function (latitude, longitude) {
+    qqmapsdk = new QQMapWX({
+      key: '3RABZ-YPA3U-SN4V7-BILRL-OWZIQ-A2BPH'
+    })
     let vm = this;
     qqmapsdk.reverseGeocoder({
       location: {
