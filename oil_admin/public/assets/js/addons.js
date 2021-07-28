@@ -1,3 +1,168 @@
 define([], function () {
-    
+    require.config({
+    paths: {
+        'bootstrap-markdown': '../addons/markdown/js/bootstrap-markdown.min',
+        'hyperdown': '../addons/markdown/js/hyperdown.min',
+        'pasteupload': '../addons/markdown/js/jquery.pasteupload'
+    },
+    shim: {
+        'bootstrap-markdown': {
+            deps: [
+                'jquery',
+                'css!../addons/markdown/css/bootstrap-markdown.css'
+            ],
+            exports: '$.fn.markdown'
+        },
+        'pasteupload': {
+            deps: [
+                'jquery',
+            ],
+            exports: '$.fn.pasteUploadImage'
+        }
+    }
+});
+require(['form', 'upload'], function (Form, Upload) {
+    var _bindevent = Form.events.bindevent;
+    Form.events.bindevent = function (form) {
+        _bindevent.apply(this, [form]);
+        var insert = function (e, url, type) {
+            var urlArr = url.split(/\,/);
+            $.each(urlArr, function () {
+                var url = Fast.api.cdnurl(this, true);
+                if (type && type == 'image') {
+                    e.replaceSelection("\n" + '![输入图片说明](' + url + ')');
+                } else {
+                    e.replaceSelection("\n" + '[输入链接说明](' + url + ')');
+                }
+            });
+            e.$element.blur();
+            e.$element.focus();
+        };
+        try {
+            if ($(".editor", form).size() > 0) {
+                require(['bootstrap-markdown', 'hyperdown', 'pasteupload'], function (undefined, undefined, undefined) {
+                    $.fn.markdown.messages.zh = {
+                        Bold: "粗体",
+                        Italic: "斜体",
+                        Heading: "标题",
+                        "URL/Link": "链接",
+                        Image: "图片",
+                        List: "列表",
+                        "Unordered List": "无序列表",
+                        "Ordered List": "有序列表",
+                        Code: "代码",
+                        Quote: "引用",
+                        Preview: "预览",
+                        "strong text": "粗体",
+                        "emphasized text": "强调",
+                        "heading text": "标题",
+                        "enter link description here": "输入链接说明",
+                        "Insert Hyperlink": "URL地址",
+                        "enter image description here": "输入图片说明",
+                        "Insert Image Hyperlink": "图片URL地址",
+                        "enter image title here": "在这里输入图片标题",
+                        "list text here": "这里是列表文本",
+                        "code text here": "这里输入代码",
+                        "quote here": "这里输入引用文本"
+                    };
+                    var parser = new HyperDown();
+                    window.marked = function (text) {
+                        return parser.makeHtml(text);
+                    };
+
+                    $(".editor", form).each(function () {
+                        var editor = $(this);
+                        editor.markdown({
+                            resize: 'vertical',
+                            language: 'zh',
+                            iconlibrary: 'fa',
+                            autofocus: false,
+                            savable: false,
+                            additionalButtons: [
+                                [{
+                                    name: "groupCustom",
+                                    data: [{
+                                        name: "cmdUploadImage",
+                                        toggle: false,
+                                        title: "Upload image",
+                                        icon: "fa fa-upload",
+                                    }, {
+                                        name: "cmdUploadFile",
+                                        toggle: false,
+                                        title: "Upload file",
+                                        icon: "fa fa-cloud-upload",
+                                    }, {
+                                        name: "cmdSelectImage",
+                                        toggle: false,
+                                        title: "Select image",
+                                        icon: "fa fa-file-image-o",
+                                        callback: function (e) {
+                                            parent.Fast.api.open("general/attachment/select?element_id=&multiple=true&mimetype=image/*", __('Choose'), {
+                                                callback: function (data) {
+                                                    var urlArr = data.url.split(/\,/);
+                                                    insert(e, data.url, 'image');
+                                                }
+                                            });
+                                            return false;
+                                        }
+                                    }, {
+                                        name: "cmdSelectAttachment",
+                                        toggle: false,
+                                        title: "Select file",
+                                        icon: "fa fa-file",
+                                        callback: function (e) {
+                                            parent.Fast.api.open("general/attachment/select?element_id=&multiple=true&mimetype=*", __('Choose'), {
+                                                callback: function (data) {
+                                                    insert(e, data.url, 'file');
+                                                }
+                                            });
+                                            return false;
+                                        }
+                                    }]
+                                }]
+                            ],
+                            onShow: function (e) {
+                                //添加上传图片按钮和上传附件按钮
+                                var imgBtn = $("button[data-handler='bootstrap-markdown-cmdUploadImage']", e.$editor);
+                                var fileBtn = $("button[data-handler='bootstrap-markdown-cmdUploadFile']", e.$editor);
+                                var btnParent = imgBtn.parent();
+                                btnParent.addClass("md-relative");
+
+                                var upImgBtn = $('<button type="button" class="uploadimage faupload" data-button="image" title="点击上传图片" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="true">点击上传图片</button>');
+                                upImgBtn.css(imgBtn.position()).appendTo(btnParent);
+
+                                var upFileBtn = $('<button type="button" class="uploadfile faupload" data-button="file" title="点击上传附件" data-multiple="true">点击上传附件</button>');
+                                upFileBtn.css(fileBtn.position()).appendTo(btnParent);
+
+                                upImgBtn.data("upload-success", function (data, ret) {
+                                    insert(e, data.url, 'image');
+                                });
+                                upFileBtn.data("upload-success", function (data, ret) {
+                                    insert(e, data.url, 'file');
+                                });
+                                Form.events.faupload(e.$editor);
+
+                                $(".uploadimage,.uploadfile", e.$editor).on("mouseenter", function () {
+                                    ($(this).data("button") === 'image' ? imgBtn : fileBtn).addClass("active");
+                                }).on("mouseleave", function () {
+                                    ($(this).data("button") === 'image' ? imgBtn : fileBtn).removeClass("active");
+                                });
+
+                                $.fn.uploadFile = function (file, filename, options) {
+                                    insert(e, data.url, 'image');
+                                };
+
+                                editor.pasteUploadImage();
+                            }
+                        });
+                    });
+                });
+            }
+        } catch (e) {
+
+        }
+
+    };
+});
+
 });
