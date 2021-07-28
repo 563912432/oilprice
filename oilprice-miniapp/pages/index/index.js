@@ -20,6 +20,8 @@ Page({
     this.getCityList()
     // 定位当前城市
     this.getUserLoaction()
+    // 取今日油价
+    this.getTodayOilPrice()
     let date = new Date()
     let nowDate = formatTime(date)
     this.setData({
@@ -32,6 +34,20 @@ Page({
         { title: '0', type: 2, price: '5.76', yesterday: '5.70' }
       ],
       notice: '1月20日，第3个工作日，预测油价累计上调幅度50元/吨，折算为0.04元、升，调整窗口时间为：2021年1月29日24时'
+    })
+  },
+  // 取今日油价
+  getTodayOilPrice: function () {
+    const _this = this
+    wx.showLoading({
+      title: '加载中',
+    })
+    getApp()._get(`Api/OilPrice/oilInfo`).then(res => {
+      wx.hideLoading({
+        success: () => {
+          console.log(res)
+        },
+      })
     })
   },
   // 取城市列表
